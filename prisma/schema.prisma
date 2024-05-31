@@ -54,6 +54,8 @@ model Clinic{
   doctorId            Int
   doctor              Doctor    @relation(fields: [doctorId], references: [id])
   dateCheck           DateTime
+  billAmount          Int
+  description         String
 }
 
 model Visit{
