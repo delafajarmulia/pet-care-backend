@@ -27,3 +27,5 @@ app.use('/auth', authController)
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`)
 })
+
+// module.exports = JWT_SECRET

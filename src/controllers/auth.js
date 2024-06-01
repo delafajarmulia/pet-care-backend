@@ -4,6 +4,7 @@ const { getOwnerByEmail, signup } = require("../repository/auth")
 const { compareSync, hashSync, compare } = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
+// const JWT_SECRET = require("../index")
 
 const router = express.Router()
 
@@ -48,15 +49,34 @@ router.post("/login", async(req, res) => {
         console.log("cek")
         // const isMatch = bcrypt.compareSync(pw, ownerAvailabled.password)
         // console.log(isMatch)
-        if(!bcrypt.compareSync(pw, ownerAvailabled.password)){
-            response(400, owner, "incorrect password", res)
+        // if(!comparePw(pw, ownerAvailabled.password)){
+        //     response(400, owner, "incorrect password", res)
+        // }
+
+        // console.log("invalid pw")
+        // const comparePw = bcrypt.compare(pw, ownerAvailabled.password, function(err, ress){
+        //     if(err) console.log(err.stack +err.message + " when compare")//res.send(err.message)
+        //     if(ress) console.log("ok")//res.send("ook")
+        // })
+        
+        // console.log(comparePw + " this is")
+
+        // const pwMatch = await bcrypt.compare(pw, ownerAvailabled.password)
+        // console.log("the value of pwMatch " +pwMatch)
+        // if(pwMatch) console.log("compare")
+        // else console.log('not compare')
+
+        const checkPw = await bcrypt.compare(pw, ownerAvailabled.password)
+        if(!checkPw){
+            res.status(401).send({
+                status: 'unauthorized',
+                message:'invalid pw',
+            })
         }
 
-        console.log("ok")
-
         const token = jwt.sign({
-            id: ownerAvailabled.id,
-        }, JWT_SECRET)
+            id: ownerAvailabled.id
+        }, process.env.JWT_SECRET, {expiresIn: "1h"})
 
         console.log('ok2')
         res.send(token)
@@ -65,9 +85,13 @@ router.post("/login", async(req, res) => {
     }
 })
 
+const comparePw = async(pw, existingPw) => {
+    await bcrypt.compare(pw, existingPw)
+}
+
 const pw = '12345'
 const hashPw = hashSync(pw, 10)
-// const isMatch = await bcrypt.compare('1345', hashPw)
+// const isMatch = await bcrypt.compare('1345', hashPw) 
 // // console.log({pw, hashPw})
 // console.log(isMatch)
 
