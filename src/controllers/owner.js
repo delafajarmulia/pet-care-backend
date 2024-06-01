@@ -32,28 +32,6 @@ router.get("/:id", async(req, res) => {
     }
 })
 
-router.post("/", async(req, res) => {
-    try {
-        const newOwner = req.body
-
-        if(newOwner.name.trim().length === 0 || newOwner.email.trim().length === 0 || newOwner.address.trim().length === 0){
-            response(400, newOwner, "some fields are missing", res)
-        }
-
-        const ownerAvailabled = await getOwnerByEmail(newOwner.email)
-        if(ownerAvailabled.length > 1){
-            console.log("ok")
-            response(400, ownerAvailabled, 'email must be unique', res)
-        }
-
-        console.log("not available")
-        const owner = await createOwner(newOwner)
-        response(200, owner, "successfully add new owner", res)
-    } catch (err) {
-        res.statusCode(400).send("internal server error")
-    }
-})
-
 router.delete("/:id", async(req, res) => {
     const id = parseInt(req.params.id)
 
