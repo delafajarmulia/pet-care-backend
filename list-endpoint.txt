@@ -1,0 +1,13 @@
+list-endpoint
+
+AUTH -> auth
+POST	/sign-up 				owner sign-up/register
+POST	/login					owner login & dapet token
+
+with authorization
+OWNER -> owners
+GET	/					get all owner
+GET	/:id					get owner by id
+GET	/:id/pets				get owner by id	include pets
+PUT	/:id					update owner by id
+

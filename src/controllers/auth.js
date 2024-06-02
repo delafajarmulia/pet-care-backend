@@ -53,11 +53,17 @@ router.post("/login", async(req, res) => {
             })
         }
 
-        const token = jwt.sign({
-            id: ownerAvailabled.id
-        }, process.env.JWT_SECRET, {expiresIn: "1h"})
+        const payload = {
+            id: ownerAvailabled.id,
+            email: ownerAvailabled.email
+        }
 
-        res.send(token)
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "1h"}) // 1h -> 1 jam, kalo semisal .env nya gak kebaca, ubah jadi proccess.env.JWT_SECRET!
+
+        res.status(201).json({
+            message: 'login successfully',
+            token: token
+        })
     } catch (e) {
         res.send(e.message)
     }

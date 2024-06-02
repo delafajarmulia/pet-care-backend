@@ -1,10 +1,11 @@
 const express = require("express")
 const { getAllOwner, getOwnerById, getOwnerByEmail, createOwner, deleteOwner } = require("../repository/owner")
 const response = require("../response")
+const authenticatedToken = require("../middleware/authenticatedToken")
 
 const router = express.Router()
 
-router.get("/", async(req, res) => {
+router.get("/", authenticatedToken, async(req, res) => {
     const owners = await getAllOwner()
     
     if(!owners){
