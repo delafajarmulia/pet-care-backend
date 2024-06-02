@@ -3,7 +3,7 @@ const {hashSync, compareSync} = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 const getOwnerByEmail = async(email) => {
-    const owner = await prisma.owner.findMany({
+    const owner = await prisma.owner.findUnique({
         where:{
             email: email,
         },
