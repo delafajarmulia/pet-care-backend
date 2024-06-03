@@ -1,25 +1,23 @@
 const express = require("express")
 const response = require("../response")
-const { getOwnerByEmail, signup } = require("../repository/auth")
-const { compareSync, hashSync, compare } = require("bcrypt")
+const { getOwnerByEmail, signup } = require("../repository/authRepository")
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-// const JWT_SECRET = require("../index")
+const { registerValidation, loginValidation } = require("../validator/userAuthValidation")
 
 const router = express.Router()
 
-router.post("/sign-up", async(req, res) => {
+router.post("/sign-up", registerValidation, async(req, res) => {
     try {
         const newOwner = req.body
 
         if(newOwner.name.trim().length === 0 || newOwner.email.trim().length === 0 || newOwner.address.trim().length === 0 || newOwner.password.trim().length === 0){
-            response(400, newOwner, "some fields are missing", res)
+            return response(400, newOwner, "some fields are missing", res)
         }
 
         const ownerAvailabled = await getOwnerByEmail(newOwner.email)
-        if(ownerAvailabled.length > 1){
-            console.log("ok")
-            response(400, ownerAvailabled, 'owner already exists', res)
+        if(ownerAvailabled){
+            return response(400, [], 'owner already exists', res)
         }
 
         const hash = await bcrypt.hash(newOwner.password, 10)
@@ -30,7 +28,7 @@ router.post("/sign-up", async(req, res) => {
     }
 })
 
-router.post("/login", async(req, res) => {
+router.post("/login", loginValidation, async(req, res) => {
     try {
         const owner = req.body
         const pw = owner.password

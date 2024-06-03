@@ -1,24 +1,22 @@
 const prisma = require("../db/index")
-const {hashSync, compareSync} = require("bcrypt")
-const jwt = require("jsonwebtoken")
 
 const getOwnerByEmail = async(email) => {
-    const owner = await prisma.owner.findUnique({
+    const user = await prisma.user.findUnique({
         where:{
             email: email,
         },
     })
-    return owner
+    return user
 }
 
 const signup = async(pwHash, newOwner) => {
-    const addOwner = await prisma.owner.create({
+    const addOwner = await prisma.user.create({
         data:{
             name: newOwner.name,
             email: newOwner.email,
             address: newOwner.address,
             password: pwHash,
-            token:""
+            role: newOwner.role
         }
     })
     return addOwner

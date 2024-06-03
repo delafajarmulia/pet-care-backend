@@ -1,7 +1,7 @@
 const prisma = require("../db/index")
 
 const getAllOwner = async() => {
-    const owners = await prisma.owner.findMany({
+    const owners = await prisma.user.findMany({
         include:{
             pets:true
         }
@@ -10,7 +10,7 @@ const getAllOwner = async() => {
 }
 
 const getOwnerById = async(id) => {
-    const owner = await prisma.owner.findFirst({
+    const owner = await prisma.user.findFirst({
         where:{
             id: id,
         },
@@ -19,7 +19,7 @@ const getOwnerById = async(id) => {
 }
 
 const deleteOwner = async(id) => {
-    const owner = await prisma.owner.delete({
+    const owner = await prisma.user.delete({
         where:{
             id: id,
         },

@@ -1,6 +1,6 @@
 const express = require("express")
 const response = require("../response")
-const { getAllDoctor, getDoctorById, createDoctor, updateDoctor } = require("../repository/doctor")
+const { getAllDoctor, getDoctorById, createDoctor, updateDoctor } = require("../repository/doctorRepository")
 
 const router = express.Router()
 

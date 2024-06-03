@@ -13,14 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Owner{
+model User{
   id        Int       @id @default(autoincrement())
-  name      String?
+  name      String?   // mandatory
   password  String
-  token     String
   email     String    @unique
   address   String
+  role      Role      @default(OWNER) // enum data type by default owner
   pets      Pet[]
+}
+
+enum Role{  // enum inisialitation
+  OWNER
+  ADMIN
 }
 
 model Category{
@@ -31,8 +36,8 @@ model Category{
 
 model Pet{
   id                  Int       @id @default(autoincrement())
-  ownerId             Int
-  owner               Owner     @relation(fields: [ownerId], references: [id])
+  userId              Int
+  user                User     @relation(fields: [userId], references: [id])
   categoryId          Int
   category            Category  @relation(fields: [categoryId], references: [id])
   name                String

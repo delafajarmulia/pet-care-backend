@@ -4,7 +4,6 @@ const app = express()
 
 dotenv.config()
 const PORT = process.env.PORT
-const JWT_SECRET = process.env.JWT_SECRET
 
 app.use(express.json())
 
@@ -12,20 +11,18 @@ app.get("/", (req, res) => {
     res.send("hello world!")
 })
 
-const ownerController = require("./controllers/owner")
+const ownerController = require("./controllers/ownerController")
 app.use('/owners', ownerController)
 
-const categoryController = require("./controllers/category")
+const categoryController = require("./controllers/categoryController")
 app.use('/categories', categoryController)
 
-const doctorController = require("./controllers/doctor")
+const doctorController = require("./controllers/doctorController")
 app.use('/doctors', doctorController)
 
-const authController = require("./controllers/auth")
+const authController = require("./controllers/authController")
 app.use('/auth', authController)
 
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`)
 })
-
-// module.exports = JWT_SECRET

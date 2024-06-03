@@ -1,5 +1,5 @@
 const express = require("express")
-const { getAllOwner, getOwnerById, getOwnerByEmail, createOwner, deleteOwner } = require("../repository/owner")
+const { getAllOwner, getOwnerById, deleteOwner } = require("../repository/ownerRepository")
 const response = require("../response")
 const authenticatedToken = require("../middleware/authenticatedToken")
 

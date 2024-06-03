@@ -1,5 +1,5 @@
 const express = require("express")
-const { getCategoryByName, createCategory, getAllCategory, getCategoryById, deleteCategory } = require("../repository/category")
+const { getCategoryByName, createCategory, getAllCategory, getCategoryById, deleteCategory } = require("../repository/categoryRepository")
 const response = require("../response")
 
 const router = express.Router()
