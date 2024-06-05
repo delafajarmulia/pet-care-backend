@@ -5,10 +5,12 @@ const registerValidation = [
     body('role', 'role is required').notEmpty(),
     body('email', 'please include a valid email')
         .notEmpty()
-        .isEmail()
-        .normalizeEmail({gmail_remove_dots: true}),
+        .trim()
+        .isEmail(),
+        // .normalizeEmail({gmail_remove_dots: true}),
     body('password')
         .notEmpty().withMessage('password is required')
+        .trim()
         .isLength({
             min:8,
         }).withMessage('password must be 8 character')
@@ -20,12 +22,14 @@ const loginValidation = [
     body('email', 'please include a valid email')
         .notEmpty()
         .isEmail()
-        .normalizeEmail({gmail_remove_dots: true}),
+        .trim(),
+        // .normalizeEmail({gmail_remove_dots: true}),
     body('password', 'password must be 8 or more character')
         .notEmpty()
-        .isLength({
-            min: 8,
-        }),
+        .trim()
+        // .isLength({
+        //     min: 8,
+        // }),
 ]
 
 module.exports = { registerValidation, loginValidation }

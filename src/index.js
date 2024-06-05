@@ -11,8 +11,8 @@ app.get("/", (req, res) => {
     res.send("hello world!")
 })
 
-const ownerController = require("./controllers/ownerController")
-app.use('/owners', ownerController)
+const userController = require("./controllers/userController")
+app.use('/users', userController)
 
 const categoryController = require("./controllers/categoryController")
 app.use('/categories', categoryController)

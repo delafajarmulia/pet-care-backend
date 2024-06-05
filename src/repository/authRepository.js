@@ -5,6 +5,13 @@ const getOwnerByEmail = async(email) => {
         where:{
             email: email,
         },
+        select:{
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            password:true
+        }
     })
     return user
 }
