@@ -14,6 +14,16 @@ const getDoctorById = async(id) => {
     return doctor
 }
 
+const getDoctorByNameAndSpecialis = async(doctorData) => {
+    const doctor = await prisma.doctor.findFirst({
+        where:{
+            name: doctorData.name,
+            specialis: doctorData.specialis,
+        },
+    })
+    return doctor
+}
+
 const createDoctor = async(newDoctor) => {
     const doctor = await prisma.doctor.create({
         data:{
@@ -40,6 +50,7 @@ const updateDoctor = async(id, newDataDoctor) => {
 module.exports ={
     getAllDoctor,
     getDoctorById,
+    getDoctorByNameAndSpecialis,
     createDoctor,
     updateDoctor
 }

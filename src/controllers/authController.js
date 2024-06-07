@@ -72,7 +72,8 @@ router.post("/login", loginValidation, async(req, res) => {
 
         const payload = {
             id: ownerAvailabled.id,
-            email: ownerAvailabled.email
+            email: ownerAvailabled.email,
+            role: ownerAvailabled.role
         }
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: "1h"}) // 1h -> 1 jam, kalo semisal .env nya gak kebaca, ubah jadi proccess.env.JWT_SECRET!

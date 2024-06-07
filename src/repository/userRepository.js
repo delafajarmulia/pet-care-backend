@@ -13,7 +13,7 @@ const getUserById = async(id) => {
     const user = await prisma.user.findFirst({
         where:{
             id: id,
-        },
+        }
     })
     return user
 }

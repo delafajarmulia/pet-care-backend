@@ -22,7 +22,7 @@ const getCategoryById = async(id) => {
 }
 
 const getCategoryByName = async(name) => {
-    const categories = await prisma.category.findMany({
+    const categories = await prisma.category.findFirst({
         where:{
             name:name,
         },

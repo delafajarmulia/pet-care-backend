@@ -10,7 +10,7 @@ router.get("/", authenticatedToken, isAdmin, async(req, res) => {
     try {
         const users = await getAllUser()
         
-        if(!users){
+        if(users.length < 1){
             return response(404, users, "owner not available", res)
         }else{
             return response(200, users, "get all owner data", res)
@@ -38,7 +38,7 @@ router.get("/:id", authenticatedToken, async(req, res) => {
     }
 })
 
-router.delete("/:id", async(req, res) => {
+router.delete("/:id", authenticatedToken, async(req, res) => {
     const id = parseInt(req.params.id)
 
     if(typeof id !== 'number'){
