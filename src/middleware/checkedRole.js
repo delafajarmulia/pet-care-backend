@@ -4,7 +4,7 @@ const isAdmin = (req, res, next) => {
     if( role !== "ADMIN" ){
         res.status(409).json({
             status: 'conflict',
-            message: 'youre not admin'
+            message: 'you are not admin'
         })
         return
     }

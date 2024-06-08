@@ -22,7 +22,7 @@ router.get("/", authenticatedToken, async(req, res) => {
     }
 })
 
-router.get("/:id", async(req, res) => {
+router.get("/:id", authenticatedToken, async(req, res) => {
     const id = parseInt(req.params.id)
     const doctor = await getDoctorById(id)
 
