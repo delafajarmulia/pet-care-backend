@@ -26,6 +26,9 @@ app.use('/doctors', doctorController)
 const petController = require("./controllers/petController")
 app.use('/pets', petController)
 
+const clinicController = require("./controllers/clinicController")
+app.use('/clinics', clinicController)
+
 
 app.listen(PORT, () => {
     console.log(`running on port ${PORT}`)
