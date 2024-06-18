@@ -8,7 +8,7 @@ const { postCategoryValidation } = require("../validator/categoryValidation")
 
 const router = express.Router()
 
-router.get("/", authenticatedToken, async(req, res) => {
+router.get("/",  async(req, res) => {   // authenticatedToken,
     const categories = await getAllCategory()
     
     // karena findmany, jadi yg dikembalikan berupa array kosong
@@ -35,7 +35,7 @@ router.get("/:id", authenticatedToken, async(req, res) => {
     return response(200, category, `get category by id ${id}`, res)
 })
 
-router.post("/", authenticatedToken, isAdmin, postCategoryValidation, async(req, res) => {
+router.post("/", postCategoryValidation, async(req, res) => { // authenticatedToken, isAdmin, 
     try {
         const newCategory = req.body
 
